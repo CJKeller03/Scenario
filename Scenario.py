@@ -20,6 +20,7 @@ rules = {
 }
 
 class Sentence:
+
     def __init__(self, subject):
         self.structure = ["START"]
         self.text = ""
@@ -28,8 +29,11 @@ class Sentence:
     def genSentence(self):
         while True:
             next = random.choice(rules[self.structure[-1]])
-            if next is "END":
+
+            if next == "END" and len(self.structure) > 3:
                 return
+            elif next == "END":
+                continue
 
             self.structure.append(next)
 
@@ -46,6 +50,8 @@ class Sentence:
                 self.text += self.getVerbPhrase()
 
             self.text += " "
+
+            
 
 
 
@@ -93,8 +99,9 @@ class Sentence:
 
     def getPrepositionalPhrase(self):
         out = []
-        if self.structure[-1] is "Subject":
+        if self.structure[-2] == "Subject":
             out.append("was")
+        
         out.append(random.choice(prepositions))
         out.append(self.getNounPhrase())
 
