@@ -1,0 +1,24 @@
+Rules:
+    1. Use only third person descriptions
+        a. - Use names instead of pronouns
+    2. Use only past tense, maybe past progressive (ran vs was running)
+
+Methods:
+    1. Use a context-free grammar. Recursively generate the sentence using randomly chosen phrases
+        a. Steal the word list from https://github.com/nicholascjones/random-sentence-generator/
+
+        Use a dict to map what parts of speech can follow other parts of speech and randomly expand all nodes until the sentence is complete
+
+        START -> {prepositional phrase}, {noun phrase}, {subject}
+        {prepositional phrase} -> {noun phrase}, {prepositional phrase}, {subject}, {conjunction} (if the current clause has a verb in it),
+                                  {adverb}
+        {noun phrase} -> {conjunction}, {prepositional phrase}, {adverb}
+
+        Pick a random part of speech that is allowed to follow the current one and repeat until the selected node is "END"
+
+    2. Start with base sentences
+        "{Prep phrase}, the {adjective} {subject} {verb phrase}, {conjunction} {adverb} {verb phrase}."
+        "{Subject} {verb phrase} {prepositional phrase}."
+        "{noun phrase} {verb phrase} {subject} {conjunction} {verb phrase} {prepositional phrase}."
+
+        Recursively expand {} nodes until there are none left then return the sentence
